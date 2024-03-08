@@ -562,10 +562,10 @@ HPARAM_GRID = {
     "batch_size": [8],
     "drop_rate": [0.15],
     "warmup_iters": [15],
-    "weight_decay": [0.1, 0.01],
+    "weight_decay": [0.04],
     "peak_lr": [0.001],
-    "initial_lr": [0.00005, 0.0001],
-    "min_lr": [0.00005, 0.0001],
+    "initial_lr": [0.00003],
+    "min_lr": [0.00005],
     "n_epochs": [25],
 }
 
@@ -654,7 +654,7 @@ def train_model(model, train_loader, val_loader, optimizer, device,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
         'loss': loss.item()
-        },"./secondrun.pt")
+        },"./thirdrun.pt")
 
     train_loss, val_loss = evaluate_model(model, train_loader, val_loader, device, eval_iter)
 
@@ -693,10 +693,10 @@ for combination in hyperparameter_combinations:
 
         GPT_CONFIG_124M = {
             "vocab_size": 50257,  # Vocabulary size
-            "ctx_len": 256,       # Context length -- shortened from original 1024 tokens
+            "ctx_len": 1024,       # Context length -- shortened from original 1024 tokens
             "emb_dim": 768,       # Embedding dimension
             "n_heads": 12,        # Number of attention heads
-            "n_layers": 12,       # Number of layers
+            "n_layers": 24,       # Number of layers
             "drop_rate": HPARAM_CONFIG["drop_rate"],
             "qkv_bias": False,    # Query-Key-Value bias
         }
@@ -722,6 +722,7 @@ for combination in hyperparameter_combinations:
 
         model = GPTModel(GPT_CONFIG_124M)
         model.to(device)
+        print(" Model Total Parameters", sum(p.numel() for p in model.parameters()))
 
         optimizer = torch.optim.AdamW(
             model.parameters(),
@@ -732,8 +733,8 @@ for combination in hyperparameter_combinations:
         encoded_start_context = train_loader.dataset.tokenizer.encode("Nevertheless")
         encoded_tensor = torch.tensor(encoded_start_context).unsqueeze(0)
     
-        if "secondrun.pt" in os.listdir("./"):
-            checkpoint = torch.load("secondrun.pt")
+        if "thirdrun.pt" in os.listdir("./"):
+            checkpoint = torch.load("thirdrun.pt")
             model.load_state_dict(checkpoint["model_state_dict"], strict=False)
             epoch = checkpoint["epoch"]
             loss = checkpoint["loss"]
@@ -766,12 +767,6 @@ for combination in hyperparameter_combinations:
         best_train_loss = None
         print(f"Best hyperparameters: {best_hparams}")
         print(f"Best Val loss: {best_val_loss} | Training loss {best_train_loss}")
-        torch.save({
-        'epoch': HPARAM_CONFIG["n_epochs"],
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'loss': loss.item()
-        },"./firstrun.pt")
         interrupted = True
         break
 

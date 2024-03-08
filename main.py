@@ -566,7 +566,7 @@ HPARAM_GRID = {
     "peak_lr": [0.001],
     "initial_lr": [0.00003],
     "min_lr": [0.00005],
-    "n_epochs": [25],
+    "n_epochs": [15],
 }
 
 
@@ -648,7 +648,7 @@ def train_model(model, train_loader, val_loader, optimizer, device,
 
             optimizer.step()
         
-        print("Loss after one epoch", loss.item())
+        print("Loss after one epoch----->", loss.item())
         torch.save({
         'epoch': HPARAM_CONFIG["n_epochs"],
         'model_state_dict': model.state_dict(),

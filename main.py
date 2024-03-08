@@ -674,7 +674,7 @@ from datasets import load_dataset
 data = load_dataset("wikitext","wikitext-2-v1")
 text_data = "\n".join(data["train"]["text"])
 
-device = "mps"
+device = "cuda"
 
 train_ratio = 0.95
 split_idx = int(train_ratio * len(text_data))

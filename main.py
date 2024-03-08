@@ -695,7 +695,7 @@ for combination in hyperparameter_combinations:
             "vocab_size": 50257,  # Vocabulary size
             "ctx_len": 1024,       # Context length -- shortened from original 1024 tokens
             "emb_dim": 768,       # Embedding dimension
-            "n_heads": 12,        # Number of attention heads
+            "n_heads": 8,        # Number of attention heads
             "n_layers": 20,       # Number of layers
             "drop_rate": HPARAM_CONFIG["drop_rate"],
             "qkv_bias": False,    # Query-Key-Value bias

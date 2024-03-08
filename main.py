@@ -696,7 +696,7 @@ for combination in hyperparameter_combinations:
             "ctx_len": 1024,       # Context length -- shortened from original 1024 tokens
             "emb_dim": 768,       # Embedding dimension
             "n_heads": 12,        # Number of attention heads
-            "n_layers": 24,       # Number of layers
+            "n_layers": 20,       # Number of layers
             "drop_rate": HPARAM_CONFIG["drop_rate"],
             "qkv_bias": False,    # Query-Key-Value bias
         }

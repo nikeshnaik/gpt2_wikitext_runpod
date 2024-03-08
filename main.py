@@ -35,7 +35,7 @@ class GPTDatasetV1(Dataset):
         return self.input_ids[idx], self.target_ids[idx]
 
 
-def create_dataloader_v1(txt, batch_size=4, max_length=256, 
+def create_dataloader_v1(txt, batch_size=4, max_length=724, 
                          stride=128, shuffle=True, drop_last=True):
     # Initialize the tokenizer
     tokenizer = tiktoken.get_encoding("gpt2")
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 
     GPT_CONFIG_124M = {
         "vocab_size": 50257,  # Vocabulary size
-        "ctx_len": 1024,      # Context length
+        "ctx_len": 512,      # Context length
         "emb_dim": 768,       # Embedding dimension
         "n_heads": 12,        # Number of attention heads
         "n_layers": 12,       # Number of layers
@@ -310,7 +310,7 @@ class GPTDatasetV1(Dataset):
         return self.input_ids[idx], self.target_ids[idx]
 
 
-def create_dataloader_v1(txt, batch_size=4, max_length=256, 
+def create_dataloader_v1(txt, batch_size=4, max_length=512, 
                          stride=128, shuffle=True, drop_last=True):
     # Initialize the tokenizer
     tokenizer = tiktoken.get_encoding("gpt2")
@@ -693,7 +693,7 @@ for combination in hyperparameter_combinations:
 
         GPT_CONFIG_124M = {
             "vocab_size": 50257,  # Vocabulary size
-            "ctx_len": 1024,       # Context length -- shortened from original 1024 tokens
+            "ctx_len": 512,       # Context length -- shortened from original 1024 tokens
             "emb_dim": 768,       # Embedding dimension
             "n_heads": 8,        # Number of attention heads
             "n_layers": 20,       # Number of layers
